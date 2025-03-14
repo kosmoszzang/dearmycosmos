@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kkk</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="sideMnu" onclick="sideMnu();">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="logo">
+            <!-- <a href="#">
+                <img src="img/logo.png" alt="main logo">
+            </a> -->
+        </div>
+        <div class="profile">
+            <!-- <a href="#">
+                <img src="img/profile.png" alt="profile">
+            </a> -->
+        </div>
+        <div class="sideConts">
+            <ul>
+                <li><a href="" target="_blank"><i class='bx bxl-instagram'></i></a></li>
+                <li><a href="" target="_blank"><i class='bx bxl-youtube'></i></a></li>
+                <li><a href="" target="_blank"><i class='bx bx-calendar-heart'></i></a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="imgArea">
+            <div class="polar"><img src="img/polaroid.png" alt="polaroid image"></div>
+            <div class="polarMemo">
+                <p>2025.</p>
+                <!-- <p><img src="img/sidemn.png" alt="guitar" width="30px"></p> -->
+            </div>
+        </div>
+        <div class="txtArea">
+            <p class="balloon balloon01">TIT title 제목</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+            <p class="balloon balloon02">SUB sub 서브</p>
+        </div>
+    </main>
+    <div class="listArea">
+        <div class="polar"><img src="img/polaroid.png" alt="polaroid image"></div>
+        <div class="polar"><img src="img/polaroid.png" alt="polaroid image"></div>
+        <div class="polar"><img src="img/polaroid.png" alt="polaroid image"></div>
+        <div class="polar"><img src="img/polaroid.png" alt="polaroid image"></div>
+        <div class="polar"><img src="img/polaroid.png" alt="polaroid image"></div>
+    </div>
+    <footer></footer>
+</body>
+<script>
+    function sideMnu(){
+        $('.sideMnu').toggleClass('close');
+        $('.sideConts').toggleClass('active');
+    }
+    document.querySelector('.listArea').addEventListener('scroll', function () {
+        const scrollPos = this.scrollLeft;
+        const polaroids = document.querySelectorAll('.listArea .polar');
+
+        polaroids.forEach((el, index) => {
+            const wave = Math.sin((scrollPos + index * 50) * 0.02) * 15; 
+            el.style.transform = `translateY(${wave}px)`;
+        });
+    });
+    const POLARPIN = document.querySelector(".imgArea");
+    const TRIGGER = document.querySelector(".txtArea");
+    const ListEnd = document.querySelector(".listArea");
+    ScrollTrigger.create({
+        trigger: document.body, // 스크롤 시작 기준: 페이지 전체 (0부터)
+        start: "top top", // 뷰포트 상단과 문서 상단이 일치할 때 시작
+        endTrigger: ListEnd, // 종료 기준 요소를 .listArea로 지정
+        pin: POLARPIN, // 고정
+        pinSpacing: false 
+    });
+    gsap.to(POLARPIN, {
+        scale: "0.9", // 원하는 축소 너비
+        duration: 3,
+        scrollTrigger: {
+            trigger: document.body,
+            start: "top top",  // 스크롤 시작 시 애니메이션 시작
+            end: "bottom bottom", // 페이지 끝까지 지속
+            scrub: 1,  // 스크롤과 함께 부드럽게 변함
+        }
+    });
+    gsap.utils.toArray(".txtArea p").forEach((el, index) => {
+        gsap.to(el, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: el,
+                start: "top 95%", // 요소가 뷰포트의 90% 지점에 도달하면 시작
+                toggleActions: "play reverse play reverse", // 한 번만 실행
+            }
+        });
+    });
+    // gsap.registerPlugin(ScrollTrigger);
+
+    // // Make sure the container takes enough space for horizontal scroll
+    // gsap.to(".listArea .polar", {
+    //     xPercent: -100 * (document.querySelectorAll(".polar").length - 1), // Move the whole list
+    //     ease: "none", // No easing for smooth scroll
+    //     scrollTrigger: {
+    //         trigger: ".listArea",
+    //         start: "bottom bottom", // Trigger when the list area reaches the top of the viewport
+    //         end: "bottom -50%", // Adjust the scroll distance (this will control the scroll speed)
+    //         scrub: true, // Makes the scroll smooth and synced with the scroll position
+    //         pin: true, // Pins the listArea to the screen while scrolling
+    //         anticipatePin: 1,
+    //         onUpdate: (self) => {
+    //             const scrollPos = self.scroll();  // Get the scroll position
+    //             document.querySelectorAll(".listArea .polar").forEach((el, index) => {
+    //                 const wave = Math.sin((scrollPos * 0.05) + (index * 0.5)) * 15; // Wave effect
+    //                 gsap.to(el, { y: wave, duration: 0.2, overwrite: "auto" });
+    //             });
+    //         }
+    //     }
+    // });
+</script>
+</html>
