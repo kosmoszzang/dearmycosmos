@@ -139,6 +139,8 @@ main .txtArea{
     background-color: rgb(229 163 50 / 25%);
     position: relative;z-index: 9;
     border-radius: 10px;
+    max-width: 750px;
+    marign: 0 auto;
 }
 main .txtArea .balloon{
     opacity: 0;
@@ -150,19 +152,21 @@ main .txtArea .balloon{
     position: relative;
     margin-left: 10px;
     margin-bottom: 10px;
-    height: 35px;
     line-height: 35px;
-    padding: 0 15px;
 }
 main .txtArea .balloon01{
     background-color: #767a1f;
     margin-left: 60px;
     margin-right: 10px;
+    padding: 0 15px;
 }
 main .txtArea .balloon02{
     background-color: #e7a738;
     margin-right: 60px;
     font-size: 14px;
+    height: auto;
+    line-height: 25px;
+    padding: 3px 15px 5px 15px;
 }
 main .txtArea .balloon::after{
     content: '';
