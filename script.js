@@ -1,3 +1,4 @@
+gsap.registerPlugin(ScrollTrigger)
 function sideMnu(){
         $('.sideMnu').toggleClass('close');
         $('.sideConts').toggleClass('active');
