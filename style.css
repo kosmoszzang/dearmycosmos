@@ -134,13 +134,12 @@ main .imgArea .polarMemo p{
     right: 15px;
 }
 main .txtArea{
-    margin-top: 20px;
     padding: 20px 0;
     background-color: rgb(229 163 50 / 25%);
     position: relative;z-index: 9;
     border-radius: 10px;
     max-width: 750px;
-    marign: 0 auto;
+    margin: 0 auto;
 }
 main .txtArea .balloon{
     opacity: 0;
